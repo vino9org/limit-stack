@@ -11,7 +11,7 @@ from pycognito import Cognito
 @pytest.fixture(scope="session", autouse=True)
 def api_base_url() -> str:
     region = os.environ.get("TESTING_REGION", "us-west-2")
-    stack = os.environ.get("TESTING_STACK_NAME", "vb-limits-local")
+    stack = os.environ.get("TESTING_STACK_NAME", "LimitsStack")
     client = boto3.client("cloudformation", region_name=region)
 
     try:
@@ -20,7 +20,7 @@ def api_base_url() -> str:
         raise Exception(f"Cannot find stack {stack} in region {region}") from e
 
     stack_outputs = response["Stacks"][0]["Outputs"]
-    api_outputs = [output for output in stack_outputs if output["OutputKey"] == "LimitApiUrl"]
+    api_outputs = [item for item in stack_outputs if "ApiGatewayToLambdaLambdaRestApiEndpoint" in item["OutputKey"]]
     return api_outputs[0]["OutputValue"]
 
 
