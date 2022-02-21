@@ -1,0 +1,62 @@
+{
+  "version": "2.0",
+  "routeKey": "ANY /customers/11223344/limits",
+  "rawPath": "/customers/11223344/limits",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "authorization": "Bearer eyJraWQiOiJEb1ErTlVndWJWdUlLRGR0Y2pEWDBzNDhUZ1FrOG5VRHBqS0VIU29ZZjVvPSIsImFsZyI6IlJTMjU2In0.eyJvcmlnaW5fanRpIjoiY2UyNTI0OTgtYjJmZi00YTg2LWFjN2EtNTBiZjBlNjE1MzRkIiwic3ViIjoiMDlhZjM3ZDQtZDM4Mi00NDU1LWFiZjMtODBjNTQ1MTI4MmE3IiwiZXZlbnRfaWQiOiIyZWZhOWMzOC1hNzBkLTQxNmMtYjllZi03MDFkODJmZjgzN2EiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6ImF3cy5jb2duaXRvLnNpZ25pbi51c2VyLmFkbWluIiwiYXV0aF90aW1lIjoxNjQ0NjUwNTg4LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtd2VzdC0yLmFtYXpvbmF3cy5jb21cL3VzLXdlc3QtMl84R0Flc095QWkiLCJleHAiOjE2NDQ2NTE0ODgsImlhdCI6MTY0NDY1MDU4OCwianRpIjoiYjg3ZmFhNDUtOWJmZi00ZDNmLThiNjUtZGI1NWRhNGQ5N2MxIiwiY2xpZW50X2lkIjoiN2M1ZHU0MXNpZTJlb2g0bTQwMjVzbGRjYWgiLCJ1c2VybmFtZSI6ImxlZSJ9.gGQALghlPGVaiU3t9hLbcXEQEaCXvp6kVDXjIC_tCXgvqoYnct3OBmiSu4NBT15RjO8xLt4Z2h-tORcAGoMZZp7gK-ntffZ0kkVxTUvLY-LfdWSEwpFS8EVnduY3rXPz07jfvjG720angL5EYmD5YIuzNRba_d73a3QvUVBi76sJ5wKy9aIfgCXvjPgpCfQma10CZhU0Yppd6krgUHRyUa1VavJc2ZokV1MaWtmY8zZKymJ7N2otZIwwTnCQUgmtyVYKhBdggvbDOoSjESH7tx9AXyqePSQU2WGAE-DpIEP4_g3SMnfGWa7bRe7PC4EHGhpaHw2BbptLQkMoPmVorA",
+    "content-length": "0",
+    "host": "hmf38aforg.execute-api.us-west-2.amazonaws.com",
+    "user-agent": "python-requests/2.27.1",
+    "x-amzn-trace-id": "Root=1-6207605d-0ad521320257df9d29b03a0a",
+    "x-forwarded-for": "103.6.150.195",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+    "accountId": "211281185885",
+    "apiId": "hmf38aforg",
+    "authorizer": {
+      "jwt": {
+        "claims": {
+          "auth_time": "1644650588",
+          "client_id": "7c5du41sie2eoh4m4025sldcah",
+          "event_id": "2efa9c38-a70d-416c-b9ef-701d82ff837a",
+          "exp": "1644651488",
+          "iat": "1644650588",
+          "iss": "https://cognito-idp.us-west-2.amazonaws.com/us-west-2_8GAesOyAi",
+          "jti": "b87faa45-9bff-4d3f-8b65-db55da4d97c1",
+          "origin_jti": "ce252498-b2ff-4a86-ac7a-50bf0e61534d",
+          "scope": "aws.cognito.signin.user.admin",
+          "sub": "09af37d4-d382-4455-abf3-80c5451282a7",
+          "token_use": "access",
+          "username": "lee"
+        },
+        "scopes": [
+          "aws.cognito.signin.user.admin"
+        ]
+      }
+    },
+    "domainName": "hmf38aforg.execute-api.us-west-2.amazonaws.com",
+    "domainPrefix": "hmf38aforg",
+    "http": {
+      "method": "POST",
+      "path": "/customers/11223344/limits",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "103.6.150.195",
+      "userAgent": "python-requests/2.27.1"
+    },
+    "requestId": "Nav-tiNGPHcEMsw=",
+    "routeKey": "ANY /customers/11223344/limits",
+    "stage": "$default",
+    "time": "12/Feb/2022:07:23:09 +0000",
+    "timeEpoch": 1644650589934
+  },
+  "body": "{\"req_amount\":1000}",
+  "pathParameters": {
+    "req_id": "11223344"
+  },
+  "isBase64Encoded": false
+}
