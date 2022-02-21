@@ -8,6 +8,8 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.9"
 aws-lambda-powertools = "^1.24.2"
+aws-cdk-lib = "^2.13.0"
+constructs = "10.*"
 pytest = "^6.2.5"
 pytest-mock = "^3.5.1"
 pytest-cov = "^3.0.0"
@@ -42,7 +44,7 @@ boto3-stubs = "1.21.2"
 [tool.isort]
 profile = "black"
 line_length = 120
-src_paths = ["src", "test"]
+src_paths = ["runtime", "infrastructure", "tests"]
 
 [tool.black]
 line-length = 120
@@ -56,7 +58,7 @@ testpaths = [
 
 [tool.coverage.run]
 source = ["limits"]
-omit = ["tests/*"]
+omit = ["tests/*", "infrastructure/*"]
 
 [tool.coverage.html]
 directory = "test_report"

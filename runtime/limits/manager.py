@@ -10,7 +10,7 @@ import ulid
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-from limits import utils
+from . import utils
 
 logger, metrics, tracer = utils.init_monitoring()
 
