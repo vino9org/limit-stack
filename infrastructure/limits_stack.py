@@ -1,6 +1,6 @@
 from os.path import abspath, dirname
 
-from aws_cdk import Stack
+from aws_cdk import RemovalPolicy, Stack
 from aws_cdk import aws_apigateway as apigateway
 from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import aws_lambda as _lambda
@@ -53,5 +53,6 @@ class LimitsStack(Stack):
                 partition_key=dynamodb.Attribute(name="customer_id", type=dynamodb.AttributeType.STRING),
                 sort_key=dynamodb.Attribute(name="request_id", type=dynamodb.AttributeType.STRING),
                 billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST,
+                removal_policy=RemovalPolicy.DESTROY,
             ),
         )

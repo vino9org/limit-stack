@@ -73,10 +73,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
       - name: delete feature stack
         run: |
           echo deleting stack $TESTING_STACK_NAME
           npm install -g aws-cdk 
+          pip install -r requirements.txt
           cdk destroy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
