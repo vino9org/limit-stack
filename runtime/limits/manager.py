@@ -6,9 +6,10 @@ from decimal import Decimal
 from typing import Dict, List, Type, TypeVar, Union, cast
 
 import boto3
-import ulid
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
+
+import ulid
 
 from . import utils
 
@@ -132,7 +133,7 @@ class PerCustomerLimit:
     def _table_(cls):
         if cls.__table__ is None:
             ddb = boto3.resource("dynamodb")
-            cls.__table__ = ddb.Table(os.environ.get("APP_TABLE_NAME", ""))
+            cls.__table__ = ddb.Table(os.environ.get("DDB_TABLE_NAME", ""))
         return cls.__table__
 
     def _upsert_customer(self, req_amount: Decimal, max_amount: Decimal, batch=None) -> Decimal:

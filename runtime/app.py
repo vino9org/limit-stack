@@ -17,7 +17,7 @@ from limits.manager import LimitManagementError, PerCustomerLimit
 
 
 logger, metrics, tracer = utils.init_monitoring()
-app = ApiGatewayResolver(proxy_type=ProxyEventType.APIGatewayProxyEventV2)
+app = ApiGatewayResolver(proxy_type=ProxyEventType.APIGatewayProxyEvent)
 
 
 def response(status_code: int, body: Dict[str, Any]) -> Response:

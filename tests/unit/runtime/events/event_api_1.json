@@ -1,0 +1,87 @@
+{
+  "resource": "/{proxy+}",
+  "path": "/customers/11223344/limits",
+  "httpMethod": "POST",
+  "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Content-Type": "application/json",
+      "Host": "11zqwqc01h.execute-api.us-west-2.amazonaws.com",
+      "User-Agent": "python-requests/2.27.1",
+      "X-Amz-Date": "20220223T083549Z",
+      "X-Amzn-Trace-Id": "Root=1-6215f1e6-069778f524f4b232443f890d",
+      "X-Forwarded-For": "120.50.43.136",
+      "X-Forwarded-Port": "443",
+      "X-Forwarded-Proto": "https"
+  },
+  "multiValueHeaders": {
+      "Accept": [
+          "*/*"
+      ],
+      "Accept-Encoding": [
+          "gzip, deflate"
+      ],
+      "Content-Type": [
+          "application/json"
+      ],
+      "Host": [
+          "11zqwqc01h.execute-api.us-west-2.amazonaws.com"
+      ],
+      "User-Agent": [
+          "python-requests/2.27.1"
+      ],
+      "X-Amz-Date": [
+          "20220223T083549Z"
+      ],
+      "X-Amzn-Trace-Id": [
+          "Root=1-6215f1e6-069778f524f4b232443f890d"
+      ],
+      "X-Forwarded-For": [
+          "120.50.43.136"
+      ],
+      "X-Forwarded-Port": [
+          "443"
+      ],
+      "X-Forwarded-Proto": [
+          "https"
+      ]
+  },
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": {
+      "proxy": "customers/11223344/limits"
+  },
+  "stageVariables": null,
+  "requestContext": {
+      "resourceId": "fry4i6",
+      "resourcePath": "/{proxy+}",
+      "httpMethod": "POST",
+      "extendedRequestId": "N_K8DHHkvHcFqFQ=",
+      "requestTime": "23/Feb/2022:08:35:50 +0000",
+      "path": "/prod/customers/11223344/limits",
+      "accountId": "211281185885",
+      "protocol": "HTTP/1.1",
+      "stage": "prod",
+      "domainPrefix": "11zqwqc01h",
+      "requestTimeEpoch": 1645605350550,
+      "requestId": "098bec29-4bd6-4f46-99e6-f306e9ad12b3",
+      "identity": {
+          "cognitoIdentityPoolId": null,
+          "accountId": "211281185885",
+          "cognitoIdentityId": null,
+          "caller": "211281185885",
+          "sourceIp": "120.50.43.136",
+          "principalOrgId": "o-6bt3ft4pcj",
+          "accessKey": "AKIATCMKXBRO3MXJ5HGA",
+          "cognitoAuthenticationType": null,
+          "cognitoAuthenticationProvider": null,
+          "userArn": "arn:aws:iam::211281185885:root",
+          "userAgent": "python-requests/2.27.1",
+          "user": "211281185885"
+      },
+      "domainName": "11zqwqc01h.execute-api.us-west-2.amazonaws.com",
+      "apiId": "11zqwqc01h"
+  },
+  "body": "{\"req_amount\": 1000}",
+  "isBase64Encoded": false
+}

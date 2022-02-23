@@ -1,3 +1,5 @@
+import os
+
 import aws_cdk as cdk
 import aws_cdk.assertions as assertions
 import pytest
@@ -8,8 +10,9 @@ from limits_stack import LimitsStack
 
 @pytest.fixture(scope="session")
 def stack() -> Template:
+    stack_name = os.environ.get("TESTING_STACK_NAME", "LimitsStack")
     app = cdk.App()
-    stack = LimitsStack(app, "LimitsStack").build()
+    stack = LimitsStack(app, stack_name).build()
     return assertions.Template.from_stack(stack)
 
 
