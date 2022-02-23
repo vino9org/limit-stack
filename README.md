@@ -43,3 +43,4 @@ Pros:
 * infra and code in one repo
 
 Cons:
+* PythonFunction buggy. workaround is to use separate layer to dependencies (extra repo to maintain) or inline the dependencies in runtime directory (extra steps, flake8 throws bunch of warnings)
