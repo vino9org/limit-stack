@@ -13,7 +13,7 @@ def event_from_file(file_name):
 
 
 def test_handler_for_apigateway(lambda_context):
-    event = event_from_file("events/event1.json")
+    event = event_from_file("events/event_api_1.json")
     ret = app.lambda_handler(event, lambda_context)
     assert ret["statusCode"] == 201
 
