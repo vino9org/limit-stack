@@ -66,29 +66,6 @@ jobs:
           AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
           TESTING_STACK_NAME: ${{ needs.set-stack-name.outputs.stack-name }}
 
-  delete-feature-stack:
-    if: startsWith(github.event.ref, 'feature') && github.event_name == 'delete'
-    needs: set-stack-name
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-python@v2
-        with:
-          python-version: '3.9'
-
-      - name: delete feature stack
-        run: |
-          echo deleting stack $TESTING_STACK_NAME
-          npm install -g aws-cdk 
-          pip install -r requirements.txt
-          cdk destroy
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
-          TESTING_STACK_NAME: ${{ needs.set-stack-name.outputs.stack-name }}
-
   integration-tests:
     needs: [set-stack-name, build-test-deploy]
     runs-on: ubuntu-latest
@@ -109,3 +86,27 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
           TESTING_STACK_NAME: ${{ needs.set-stack-name.outputs.stack-name }}
+
+  delete-feature-stack:
+    if: startsWith(github.event.ref, 'feature') && github.event_name == 'delete'
+    needs: set-stack-name
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: delete feature stack
+        run: |
+          echo deleting stack $TESTING_STACK_NAME
+          npm install -g aws-cdk 
+          pip install -r requirements.txt
+          cdk destroy --force
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
+          TESTING_STACK_NAME: ${{ needs.set-stack-name.outputs.stack-name }}
+
