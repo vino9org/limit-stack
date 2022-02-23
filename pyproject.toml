@@ -5,6 +5,8 @@ description = "Vino Bank demo limits management module"
 authors = ["Li Lin <guru.lin@gmail.com>"]
 license = "MIT"
 
+# this section contains all dependencies required to run unit and integration tests
+# not just dependencies requied for lambda runtime
 [tool.poetry.dependencies]
 python = "^3.9"
 aws-lambda-powertools = "^1.24.2"
@@ -15,9 +17,9 @@ pytest-mock = "^3.5.1"
 pytest-cov = "^3.0.0"
 requests = "^2.27.1"
 ulid-py = "^1.1.0"
-pycognito = "^2022.1.0"
 "aws-solutions-constructs.aws-apigateway-lambda" = "^2.2.0"
 "aws-solutions-constructs.aws-lambda-dynamodb" = "^2.2.0"
+requests-aws-iam-auth = "^0.2.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
