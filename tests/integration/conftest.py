@@ -17,5 +17,5 @@ def api_base_url() -> str:
         raise Exception(f"Cannot find stack {stack_name} in region {region}") from e
 
     stack_outputs = response["Stacks"][0]["Outputs"]
-    api_outputs = [item for item in stack_outputs if "ApiGatewayToLambdaLambdaRestApiEndpoint" in item["OutputKey"]]
+    api_outputs = [item for item in stack_outputs if "RestApiEndpoint" in item["OutputKey"]]
     return api_outputs[0]["OutputValue"]

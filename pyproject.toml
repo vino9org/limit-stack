@@ -17,10 +17,11 @@ pytest = "^6.2.5"
 pytest-mock = "^3.5.1"
 pytest-cov = "^3.0.0"
 requests = "^2.27.1"
+requests-aws-iam-auth = "^0.2.0"
 # ulid-py = "^1.1.0" # this is inlined in runtime directory
 "aws-solutions-constructs.aws-apigateway-lambda" = "^2.2.0"
 "aws-solutions-constructs.aws-lambda-dynamodb" = "^2.2.0"
-requests-aws-iam-auth = "^0.2.0"
+"aws-solutions-constructs.aws-eventbridge-lambda" = "^2.2.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

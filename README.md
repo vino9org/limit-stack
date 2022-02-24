@@ -44,3 +44,8 @@ Pros:
 
 Cons:
 * PythonFunction buggy. workaround is to use separate layer to dependencies (extra repo to maintain) or inline the dependencies in runtime directory (extra steps, flake8 throws bunch of warnings)
+
+
+### TODO
+1. use unique event bridge to avoid event trigger lambda in multiple stacks
+2. externalize runtime dependencies into its own layer

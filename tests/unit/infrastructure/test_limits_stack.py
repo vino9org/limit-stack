@@ -17,7 +17,7 @@ def stack() -> Template:
 
 
 def test_iam_roles_created(stack) -> None:
-    assert len(stack.find_resources("AWS::IAM::Role")) == 2
+    assert len(stack.find_resources("AWS::IAM::Role")) == 3
 
 
 def test_lambda_created(stack) -> None:

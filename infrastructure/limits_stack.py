@@ -3,9 +3,11 @@ from os.path import abspath, dirname
 from aws_cdk import RemovalPolicy, Stack
 from aws_cdk import aws_apigateway as apigateway
 from aws_cdk import aws_dynamodb as dynamodb
+from aws_cdk import aws_events as events
 from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_logs as logs
 from aws_solutions_constructs.aws_apigateway_lambda import ApiGatewayToLambda
+from aws_solutions_constructs.aws_eventbridge_lambda import EventbridgeToLambda, EventbridgeToLambdaProps
 from aws_solutions_constructs.aws_lambda_dynamodb import LambdaToDynamoDB
 from constructs import Construct
 
@@ -17,13 +19,14 @@ class LimitsStack(Stack):
     def build(self):
         construct1 = self.lamdba_with_restapi()
         self.dynamodb_table_for_lambda(construct1.lambda_function)
+        self.event_bridge_trigger_for_lambda(construct1.lambda_function)
         return self
 
     def lamdba_with_restapi(self) -> ApiGatewayToLambda:
         src_dir = abspath(dirname(abspath(__file__)) + "/../runtime")
         return ApiGatewayToLambda(
             self,
-            f"{self.stack_name}-ApiGatewayToLambda",
+            f"{self.stack_name}-restapi",
             api_gateway_props=apigateway.RestApiProps(
                 endpoint_configuration=apigateway.EndpointConfiguration(
                     types=[apigateway.EndpointType.REGIONAL],
@@ -42,6 +45,7 @@ class LimitsStack(Stack):
                 ],
                 memory_size=512,
                 architecture=_lambda.Architecture.ARM_64,
+                log_retention=logs.RetentionDays.ONE_WEEK,
             ),
             log_group_props=logs.LogGroupProps(
                 retention=logs.RetentionDays.ONE_WEEK,
@@ -51,12 +55,26 @@ class LimitsStack(Stack):
     def dynamodb_table_for_lambda(self, lambda_func: _lambda.Function) -> LambdaToDynamoDB:
         return LambdaToDynamoDB(
             self,
-            f"{self.stack_name}-LambdaToDynamoDB",
+            f"{self.stack_name}-ddb",
             existing_lambda_obj=lambda_func,
             dynamo_table_props=dynamodb.TableProps(
                 partition_key=dynamodb.Attribute(name="customer_id", type=dynamodb.AttributeType.STRING),
                 sort_key=dynamodb.Attribute(name="request_id", type=dynamodb.AttributeType.STRING),
                 billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST,
                 removal_policy=RemovalPolicy.DESTROY,
+            ),
+        )
+
+    def event_bridge_trigger_for_lambda(self, lambda_func: _lambda.Function) -> EventbridgeToLambda:
+        return EventbridgeToLambda(
+            self,
+            f"{self.stack_name}-trigger",
+            existing_lambda_obj=lambda_func,
+            event_rule_props=events.RuleProps(
+                enabled=True,
+                event_pattern=events.EventPattern(
+                    source=["service.fund_transfer"], detail_type=["transfer"], detail={"status": ["completed"]}
+                ),
+                rule_name=f"{self.stack_name}-limits-trigger",
             ),
         )

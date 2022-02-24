@@ -13,6 +13,9 @@ aws-lambda-powertools==1.25.1; python_full_version >= "3.6.2" and python_full_ve
 aws-solutions-constructs.aws-apigateway-lambda==2.2.0; python_version >= "3.6" \
     --hash=sha256:da2e551746f637ef9848fee04ea39587f6272ab4fb5f83da7d732595b6f67f29 \
     --hash=sha256:bd863554cfbc804b4f94122ad9438ae8d3cfe0d730349885d4efc4864a932b6e
+aws-solutions-constructs.aws-eventbridge-lambda==2.2.0; python_version >= "3.6" \
+    --hash=sha256:dc9cf827b5da4274b0c4bd2231ed2ef0325d12050314c226ac95f6f0c1ce3fc5 \
+    --hash=sha256:80db68ca22a2b60a13ebca58078a9d00dbb22243c7ed5cf66c3bb9ff09717afb
 aws-solutions-constructs.aws-lambda-dynamodb==2.2.0; python_version >= "3.6" \
     --hash=sha256:13fa15fabf1677000069b60c0915c0bc4dd541b94c095e5ee85beffc6c0077aa \
     --hash=sha256:189c5c5d67b2767ba68795c514cd5b7e56234ad9c5bde981cb9906671976652d
