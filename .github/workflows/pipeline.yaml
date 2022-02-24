@@ -21,8 +21,17 @@ jobs:
       - name: set stack name from git branch name
         id: set-stack-name
         run: |
-          STACK_NAME=$([ "$GITHUB_REF" == "refs/heads/develop" ] && echo "develop" || echo ${GITHUB_REF##*/} | tr -cd "[a-zA-Z0-9-]")
-          echo STACK_NAME=$STACK_NAME
+          env | grep GITHUB | sort
+
+          if [ "$GITHUB_EVENT_NAME" == "push" -a "$GITHUB_REF" == "refs/heads/develop" ]; then
+              STACK_NAME="develop"
+          elif [ "$GITHUB_EVENT_NAME" == "push" -a "${GITHUB_REF:0:18}" == "refs/heads/feature" ]; then
+              STACK_NAME=$(echo ${GITHUB_REF##*/} | tr -cd "[a-zA-Z0-9-]")
+          elif [ "$GITHUB_EVENT_NAME" == "delete" ]; then
+              STACK_NAME=$(echo ${GITHUB_EVENT_REF##*/} | tr -cd "[a-zA-Z0-9-]")
+          fi
+
+          echo STACK_NAME="$STACK_NAME"
           echo '::set-output name=stack-name::LimitsStack-'$STACK_NAME
 
   build-test-deploy:
@@ -89,6 +98,7 @@ jobs:
 
   delete-feature-stack:
     if: startsWith(github.event.ref, 'feature') && github.event_name == 'delete'
+    needs: set-stack-name
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -107,5 +117,5 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
-          TESTING_STACK_NAME: ${{ github.event.ref }}
+          TESTING_STACK_NAME: ${{ needs.set-stack-name.outputs.stack-name }}
 
