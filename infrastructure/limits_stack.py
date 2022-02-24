@@ -4,6 +4,7 @@ from aws_cdk import RemovalPolicy, Stack
 from aws_cdk import aws_apigateway as apigateway
 from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import aws_lambda as _lambda
+from aws_cdk import aws_logs as logs
 from aws_solutions_constructs.aws_apigateway_lambda import ApiGatewayToLambda
 from aws_solutions_constructs.aws_lambda_dynamodb import LambdaToDynamoDB
 from constructs import Construct
@@ -41,6 +42,7 @@ class LimitsStack(Stack):
                 ],
                 memory_size=512,
                 architecture=_lambda.Architecture.ARM_64,
+                log_retention=logs.RetentionDays.ONE_WEEK,
             ),
         )
 
