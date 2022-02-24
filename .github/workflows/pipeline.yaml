@@ -33,8 +33,6 @@ jobs:
 
           echo STACK_NAME="$STACK_NAME"
           echo '::set-output name=stack-name::LimitsStack-'$STACK_NAME
-        env:
-          GITHUB_EVENT_REF: ${{ github.event.ref }}
 
   build-test-deploy:
     if: github.event_name != 'delete'
@@ -78,7 +76,7 @@ jobs:
           TESTING_STACK_NAME: ${{ needs.set-stack-name.outputs.stack-name }}
 
   integration-tests:
-    needs: build-test-deploy
+    needs: [set-stack-name, build-test-deploy]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
