@@ -42,7 +42,9 @@ class LimitsStack(Stack):
                 ],
                 memory_size=512,
                 architecture=_lambda.Architecture.ARM_64,
-                log_retention=logs.RetentionDays.ONE_WEEK,
+            ),
+            log_group_props=logs.LogGroupProps(
+                retention=logs.RetentionDays.ONE_WEEK,
             ),
         )
 
