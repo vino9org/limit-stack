@@ -48,4 +48,3 @@ Cons:
 
 ### TODO
 1. use unique event bridge to avoid event trigger lambda in multiple stacks
-2. externalize runtime dependencies into its own layer

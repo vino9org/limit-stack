@@ -1,8 +1,8 @@
 from decimal import Decimal
 
 import pytest
-import ulid
 
+import ulid
 from limits import utils
 from limits.manager import LimitManagementError, PerCustomerLimit
 

@@ -7,7 +7,7 @@ from aws_cdk import aws_events as events
 from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_logs as logs
 from aws_solutions_constructs.aws_apigateway_lambda import ApiGatewayToLambda
-from aws_solutions_constructs.aws_eventbridge_lambda import EventbridgeToLambda, EventbridgeToLambdaProps
+from aws_solutions_constructs.aws_eventbridge_lambda import EventbridgeToLambda
 from aws_solutions_constructs.aws_lambda_dynamodb import LambdaToDynamoDB
 from constructs import Construct
 

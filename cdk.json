@@ -11,7 +11,10 @@
       "source.bat",
       "**/__init__.py",
       "**/__pycache__",
-      "tests"
+      "tests",
+      "*.toml",
+      "*.lock",
+      "test_report/**"
     ]
   },
   "context": {
