@@ -22,5 +22,11 @@ def test_iam_roles_created(stack) -> None:
 
 def test_lambda_created(stack) -> None:
     all_funcs = stack.find_resources("AWS::Lambda::Function")
-    func = list(all_funcs.values())[0]
+    func = next(iter(all_funcs.values()))
     assert "python" in func["Properties"]["Runtime"]
+
+
+def test_dyanmodb_table_created(stack) -> None:
+    all_tables = stack.find_resources("AWS::DynamoDB::Table")
+    table_name = next(iter(all_tables.keys()))
+    assert "LimitsStack" in table_name
