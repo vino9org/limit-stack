@@ -1,6 +1,6 @@
 from os.path import abspath, dirname
 
-from aws_cdk import RemovalPolicy, Stack
+from aws_cdk import CfnOutput, RemovalPolicy, Stack
 from aws_cdk import aws_apigateway as apigateway
 from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import aws_events as events
@@ -17,9 +17,12 @@ class LimitsStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
     def build(self):
-        construct1 = self.lamdba_with_restapi()
-        self.dynamodb_table_for_lambda(construct1.lambda_function)
-        self.event_bridge_trigger_for_lambda(construct1.lambda_function)
+        cons1 = self.lamdba_with_restapi()
+        cons2 = self.dynamodb_table_for_lambda(cons1.lambda_function)
+        self.event_bridge_trigger_for_lambda(cons1.lambda_function)
+
+        CfnOutput(self, "LimitsTableName", value=cons2.dynamo_table.table_name)
+
         return self
 
     def lamdba_with_restapi(self) -> ApiGatewayToLambda:
