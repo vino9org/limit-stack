@@ -19,11 +19,6 @@ class JSONEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 
-#
-# TODO: add error handler for ClientError
-#
-
-
 logger, metrics, tracer = utils.init_monitoring()
 app = ApiGatewayResolver(proxy_type=ProxyEventType.APIGatewayProxyEvent)
 
@@ -105,6 +100,6 @@ def lambda_handler(event: Dict[str, Any], context: LambdaContext):
         # treat this as an event from ApiGateway
         return app.resolve(event, context)
     else:
-        # treat this event as if it's from event bridge
+        # treat this event as an event from event bridge
         eb_event = EventBridgeEvent(event)
         return handle_event(eb_event.detail)
