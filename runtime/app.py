@@ -1,4 +1,5 @@
 import json
+from decimal import Decimal
 from typing import Any, Dict
 
 from aws_lambda_powertools.event_handler.api_gateway import ApiGatewayResolver, ProxyEventType, Response
@@ -9,7 +10,14 @@ from botocore.exceptions import ClientError
 from limits import utils
 from limits.manager import LimitManagementError, PerCustomerLimit
 
-# from aws_lambda_powertools.metrics import MetricUnit
+
+# handles serializatino of Decimal
+class JSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Decimal):
+            return float(obj)
+        return json.JSONEncoder.default(self, obj)
+
 
 #
 # TODO: add error handler for ClientError
@@ -21,7 +29,7 @@ app = ApiGatewayResolver(proxy_type=ProxyEventType.APIGatewayProxyEvent)
 
 
 def response(status_code: int, body: Dict[str, Any]) -> Response:
-    return Response(status_code, "application/json", json.dumps(body))
+    return Response(status_code, "application/json", json.dumps(body, cls=JSONEncoder))
 
 
 @app.post("/customers/<customer_id>/limits")
@@ -78,7 +86,7 @@ def handle_event(event_detail: Dict[str, Any]) -> bool:
     # from processing logic
     try:
         customer_id = event_detail["customer_id"]
-        req_id = event_detail["req_id"]
+        req_id = event_detail["limits_req_id"]
         request_confirm(customer_id, req_id)
         return True
     except KeyError:
