@@ -35,7 +35,7 @@ def stack_outputs_for_key(key: str) -> List[str]:
     global _stack_outputs_
 
     region = os.environ.get("TESTING_REGION", "us-west-2")
-    stack_name = os.environ.get("TESTING_STACK_NAME", "AccountsApiStack")
+    stack_name = os.environ.get("TESTING_STACK_NAME", "LimitsStack")
     client = boto3.client("cloudformation", region_name=region)
 
     if not _stack_outputs_:
