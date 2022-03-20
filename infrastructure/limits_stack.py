@@ -27,10 +27,12 @@ class LimitsStack(Stack):
 
     def lamdba_with_restapi(self) -> ApiGatewayToLambda:
         src_dir = abspath(dirname(abspath(__file__)) + "/../runtime")
+        name = f"{self.stack_name}-restapi"
         return ApiGatewayToLambda(
             self,
-            f"{self.stack_name}-restapi",
+            name,
             api_gateway_props=apigateway.RestApiProps(
+                rest_api_name=name,
                 endpoint_configuration=apigateway.EndpointConfiguration(
                     types=[apigateway.EndpointType.REGIONAL],
                 ),
