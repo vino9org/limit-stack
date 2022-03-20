@@ -37,7 +37,7 @@ def new_request(customer_id):
     req_amount = body["req_amount"]
 
     logger.info(f"new_request for {customer_id} of amount {req_amount}")
-    req_id = PerCustomerLimit(customer_id).request(Decimal(req_amount))
+    req_id = PerCustomerLimit(customer_id).request(Decimal(str(req_amount)))
     return response(
         201,
         {
