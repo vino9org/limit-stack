@@ -1,0 +1,30 @@
+{
+  "version": "0",
+  "id": "CWE-event-id",
+  "account": "123456789012",
+  "time": "2017-04-22T03:31:47Z",
+  "region": "us-west-2",
+  "source": "service.fund_transfer",
+  "detail-type": "transfer",
+  "detail": {
+      "transaction_id": "c0a3bebeac5b11ec980a5a50a8b68cea",
+      "debit_customer_id": "BECF0922AC5B11EC980A5A50A8B68CEA",
+      "debit_account_id": "RANDOM_ACCOUNT_ID",
+      "debit_prev_balance": 1000.12,
+      "debit_prev_avail_balance": 1000.12,
+      "debit_balance": 900.14,
+      "debit_avail_balance": 900.14,
+      "credit_customer_id": "omitted",
+      "credit_account_id": "omitted",
+      "credit_prev_balance": 2000.0,
+      "credit_prev_avail_balance": 2000.0,
+      "credit_balance": 2099.98,
+      "credit_avail_balance": 2099.98,
+      "transfer_amount": 99.98,
+      "currency": "SGD",
+      "memo": "test transfer from pytest",
+      "transaction_date": "2022-03-21",
+      "status": "completed",
+      "limits_req_id": "01FZ0ZT2P97S54KEERP49X1CDR"
+    }
+}
