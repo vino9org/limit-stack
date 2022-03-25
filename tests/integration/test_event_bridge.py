@@ -1,6 +1,6 @@
-import json
 import uuid
 from datetime import datetime
+from decimal import Decimal
 from time import sleep
 from typing import Any, Dict, Tuple
 
@@ -9,6 +9,7 @@ import requests
 from requests_aws4auth import AWS4Auth
 
 import limits.utils as utils
+from app import FundTransfer
 from limits.manager import PerCustomerLimit
 
 TEST_CUSTOMER_ID = uuid.uuid1().hex.upper()
@@ -16,22 +17,26 @@ TEST_CUSTOMER_ID = uuid.uuid1().hex.upper()
 
 def gen_test_event(req_id: str) -> Tuple[str, Dict[Any, Any]]:
     trx_id = uuid.uuid1().hex
-    detail = json.dumps(
-        {
-            "customer_id": TEST_CUSTOMER_ID,
-            "account_id": "RANDOM_ACCOUNT_ID",
-            "transaction_id": trx_id,
-            "transfer_amount": 1234.56,
-            "prev_balance": 10000.00,
-            "prev_avail_balance": 10000.00,
-            "new_balance": 11234.56,
-            "new_avail_balance": 11234.56,
-            "currency": "SGD",
-            "memo": "to some random account",
-            "transaction_date": "2022-03-11",
-            "status": "completed",
-            "limits_req_id": req_id,
-        }
+    transfer = FundTransfer(
+        transaction_id=trx_id,
+        debit_customer_id=TEST_CUSTOMER_ID,
+        debit_account_id="RANDOM_ACCOUNT_ID",
+        currency="SGD",
+        credit_customer_id="omitted",
+        credit_account_id="omitted",
+        transfer_amount=Decimal("99.98"),
+        memo="test transfer from pytest",
+        transaction_date="2022-03-21",
+        debit_prev_balance=Decimal("1000.12"),
+        debit_prev_avail_balance=Decimal("1000.12"),
+        debit_balance=Decimal("900.14"),
+        debit_avail_balance=Decimal("900.14"),
+        credit_prev_balance=Decimal("2000.00"),
+        credit_prev_avail_balance=Decimal("2000.00"),
+        credit_balance=Decimal("2099.98"),
+        credit_avail_balance=Decimal("2099.98"),
+        status="completed",
+        limits_req_id=req_id,
     )
 
     event = {
@@ -39,7 +44,7 @@ def gen_test_event(req_id: str) -> Tuple[str, Dict[Any, Any]]:
         "Source": "service.fund_transfer",
         "DetailType": "transfer",
         "EventBusName": "default",
-        "Detail": detail,
+        "Detail": transfer.json(),
     }
 
     return trx_id, event

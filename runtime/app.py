@@ -1,4 +1,5 @@
 import json
+import sys
 from decimal import Decimal
 from typing import Any, Dict
 
@@ -6,9 +7,36 @@ from aws_lambda_powertools.event_handler.api_gateway import ApiGatewayResolver, 
 from aws_lambda_powertools.utilities.data_classes import EventBridgeEvent
 from aws_lambda_powertools.utilities.typing import LambdaContext
 from botocore.exceptions import ClientError
+from pydantic import BaseModel
 
 from limits import utils
 from limits.manager import LimitManagementError, PerCustomerLimit
+
+
+class FundTransfer(BaseModel):
+    transaction_id: str
+
+    debit_customer_id: str
+    debit_account_id: str
+    debit_prev_balance: Decimal
+    debit_prev_avail_balance: Decimal
+    debit_balance: Decimal
+    debit_avail_balance: Decimal
+
+    credit_customer_id: str
+    credit_account_id: str
+    credit_prev_balance: Decimal
+    credit_prev_avail_balance: Decimal
+    credit_balance: Decimal
+    credit_avail_balance: Decimal
+
+    transfer_amount: Decimal
+    currency: str
+    memo: str
+    transaction_date: str
+    status: str
+
+    limits_req_id: str
 
 
 # handles serializatino of Decimal
@@ -75,21 +103,23 @@ def get_current_limits(customer_id):
 
 
 @tracer.capture_method
-def handle_event(event_detail: Dict[str, Any]) -> bool:
+def handle_event(transfer: FundTransfer) -> bool:
     # to prevent eventbridge from retrying requests
     # unneccessarily, we need to handle exceptions thrown
     # from processing logic
     try:
-        customer_id = event_detail["customer_id"]
-        req_id = event_detail["limits_req_id"]
+        customer_id = transfer.debit_customer_id
+        req_id = transfer.limits_req_id
         request_confirm(customer_id, req_id)
         return True
     except KeyError:
-        logger.info("event does not have req_id attribute set %s", event_detail)
+        logger.info("event does not have req_id attribute set %s", transfer)
     except LimitManagementError as e:
         logger.info("exception during processing: %s", e)
     except ClientError as e:
         logger.info("AWS API exception during processing: %s", e)
+    except:  # noqa
+        logger.warning("Unexpected error:", sys.exc_info()[0])
 
     return False
 
@@ -102,4 +132,5 @@ def lambda_handler(event: Dict[str, Any], context: LambdaContext):
     else:
         # treat this event as an event from event bridge
         eb_event = EventBridgeEvent(event)
-        return handle_event(eb_event.detail)
+        transfer = FundTransfer(**eb_event.detail)
+        return handle_event(transfer)

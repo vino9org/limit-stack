@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from typing import Dict, Tuple, Union, cast
 from urllib.parse import urlparse
 
-from aws_lambda_powertools import Logger, Metrics, Tracer
+from aws_lambda_powertools import Logger, Metrics, Tracer  # type: ignore
 from aws_lambda_powertools.utilities import parameters
 
 
