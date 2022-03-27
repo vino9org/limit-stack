@@ -82,8 +82,10 @@ class PerCustomerLimit:
         if expires_at:
             expires_at = utils.iso_timestamp(int(__params__["default_request_ttl"]))
 
-        req_id = self._add_request(req_amount, expires_at)
         self.avail_amount = self._upsert_customer(req_amount, self.max_amount)
+        req_id = self._add_request(req_amount, expires_at)
+
+        logger.info(f"request {req_id} created for customer {self.customer_id} for amount {str(req_amount)}")
 
         return req_id
 
@@ -95,13 +97,16 @@ class PerCustomerLimit:
         amount = self._del_request(req_id)
         # release means increase the avail_amount, so we pass negative req_amount
         self.avail_amount = self._upsert_customer(-1 * amount, self.max_amount)
+        logger.info(f"released request {req_id} for customer {self.customer_id}")
 
     def confirm(self, req_id: str):
         """
         confirm the request has been consumed
         typeically called after a fund transfer is unsuccessful
         """
-        return self._del_request(req_id)
+        amount = self._del_request(req_id)
+        logger.info(f"confirm request {req_id} for customer {self.customer_id} of amount {str(amount)}")
+        return amount
 
     def reset(self) -> None:
         """
@@ -116,6 +121,8 @@ class PerCustomerLimit:
         """
         if not cutoff_time:
             cutoff_time = utils.iso_timestamp(offset=int(__params__["default_request_ttl"]))
+
+        logger.info(f"trying to reclaim outstanding requests prior to {cutoff_time} for customer {self.customer_id}")
 
         req_ids = self._requests_prior(cutoff_time)
         if req_ids:
