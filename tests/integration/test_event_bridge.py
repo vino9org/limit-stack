@@ -61,12 +61,12 @@ def send_fund_transfer_event(req_id: str) -> str:
     return trx_id
 
 
-def test_confirm_rquest_event(api_auth: AWS4Auth, api_base_url: str) -> None:
+def test_confirm_rquest_event(api_key: str, api_base_url: str) -> None:
     manager = PerCustomerLimit(TEST_CUSTOMER_ID)
     cutoff_time = utils.iso_timestamp(offset=30)
 
     response = requests.post(
-        f"{api_base_url}customers/{TEST_CUSTOMER_ID}/limits", json={"req_amount": 1000}, auth=api_auth
+        f"{api_base_url}customers/{TEST_CUSTOMER_ID}/limits", json={"req_amount": 1000}, headers={"x-api-key": api_key}
     )
     assert response.status_code == 201
 

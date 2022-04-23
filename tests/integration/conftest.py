@@ -4,7 +4,6 @@ from typing import List
 import boto3
 import pytest
 from botocore.exceptions import ClientError
-from requests_aws4auth import AWS4Auth
 
 from limits.manager import PerCustomerLimit
 
@@ -65,12 +64,15 @@ def api_base_url() -> str:
 
 
 @pytest.fixture(scope="session")
-def api_auth() -> AWS4Auth:
-    session = boto3.Session()
-    credentials = session.get_credentials()
-    return AWS4Auth(
-        credentials.access_key,
-        credentials.secret_key,
-        session.region_name,
-        "execute-api",
-    )
+def api_key() -> str:
+    api_id = stack_outputs_for_key("LimitsRestApiId")
+    client = boto3.client("apigateway")
+    response = client.get_api_keys(includeValues=True)
+    if response["ResponseMetadata"]["HTTPStatusCode"] != 200:
+        raise Exception("cannot retrieve api keys")
+
+    for item in response["items"]:
+        if f"{api_id}/prod" in item["stageKeys"]:
+            return item["value"]
+
+    raise Exception("cannot find api keys in response")

@@ -23,6 +23,7 @@ class LimitsStack(Stack):
         self.event_bridge_trigger_for_lambda(cons1.lambda_function)
 
         CfnOutput(self, "LimitsTableName", value=cons2.dynamo_table.table_name)
+        CfnOutput(self, "LimitsRestApiId", value=cons1.api_gateway.rest_api_id)
 
         return self
 
