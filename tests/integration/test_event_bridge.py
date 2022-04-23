@@ -6,7 +6,6 @@ from typing import Any, Dict, Tuple
 
 import boto3
 import requests
-from requests_aws4auth import AWS4Auth
 
 import limits.utils as utils
 from app import FundTransfer
