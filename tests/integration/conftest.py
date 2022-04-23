@@ -65,7 +65,7 @@ def api_base_url() -> str:
 
 @pytest.fixture(scope="session")
 def api_key() -> str:
-    api_id = stack_outputs_for_key("LimitsRestApiId")
+    api_id = stack_outputs_for_key("LimitsRestApiId")[0]
     client = boto3.client("apigateway")
     response = client.get_api_keys(includeValues=True)
     if response["ResponseMetadata"]["HTTPStatusCode"] != 200:
