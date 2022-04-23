@@ -35,7 +35,7 @@ class LimitsStack(Stack):
             api_gateway_props=apigateway.RestApiProps(
                 rest_api_name=name,
                 default_method_options=apigateway.MethodOptions(
-                    api_key_required=False,
+                    api_key_required=True,
                     authorization_type=apigateway.AuthorizationType.NONE,
                 ),
                 endpoint_configuration=apigateway.EndpointConfiguration(
