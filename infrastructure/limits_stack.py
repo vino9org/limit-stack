@@ -47,7 +47,7 @@ class LimitsStack(Stack):
                 runtime=_lambda.Runtime.PYTHON_3_9,
                 handler="app.lambda_handler",
                 code=_lambda.Code.from_asset(src_dir),
-                layers=[self.powertools_layer("1.24.2")],
+                layers=[self.powertools_layer("1.27.0")],
                 memory_size=512,
                 architecture=_lambda.Architecture.ARM_64,
                 log_retention=logs.RetentionDays.ONE_WEEK,
@@ -90,7 +90,7 @@ class LimitsStack(Stack):
         powertools_app = sam.CfnApplication(
             self,
             f"{POWERTOOLS_BASE_NAME}Application",
-            location={  # type: ignore
+            location={
                 "applicationId": "arn:aws:serverlessrepo:eu-west-1:057560766410:applications/aws-lambda-powertools-python-layer-extras",  # noqa
                 "semanticVersion": version,
             },

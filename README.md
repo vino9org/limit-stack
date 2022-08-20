@@ -37,6 +37,21 @@ body: {"amount" : <amount>}
 
 ```
 
+## cheat sheet
+```
+# run unit tests
+docker run -d -p 8000:8000 amazon/dynamodb-local
+export LOCAL_DYNAMODB_URL=http://localhost:8000
+pytest tests/unit
+
+# deploy
+cdk synth
+cdk deploy --require-approval never
+
+# generate requirements.txt
+poetry export --without-hashes --format=requirements.txt > requirements.txt
+```
+
 ## Notes
 
 Pros:
