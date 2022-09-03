@@ -7,10 +7,19 @@ license = "MIT"
 
 # this section contains all dependencies required to run unit and integration tests
 # not just dependencies requied for lambda runtime
+#
+# notes on versions of some dependencies
+#
+# the python and boto3 versions are deteremined by AWs Lambda runtime 
+# https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
+#
+# version of pydantic is based on what's used by aws-lambda-powertools
+# https://github.com/awslabs/aws-lambda-powertools-python/blob/develop/pyproject.toml
+
 [tool.poetry.dependencies]
 python = "^3.9"
-boto3 = "1.21.4"
-aws-lambda-powertools = "^1.27.0"
+boto3 = "1.20.32"
+aws-lambda-powertools = "^1.28.0"
 aws-cdk-lib = "^2.38.1"
 constructs = "10.*"
 pytest = "^6.2.5"
@@ -20,9 +29,8 @@ pytest-cov = "^3.0.0"
 "aws-solutions-constructs.aws-lambda-dynamodb" = "^2.18.0"
 "aws-solutions-constructs.aws-eventbridge-lambda" = "^2.18.0"
 ulid-py = "^1.1.0"
-pydantic = "^1.9.0"
+pydantic = "^1.8.2"
 requests = "^2.27.1"
-exceptiongroup = "^1.0.0-rc.8"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -40,12 +48,12 @@ flake8-fixme = "^1.1.1"
 flake8-isort = "^4.1.1"
 flake8-variables-names = "^0.0.4"
 isort = "^5.10.1"
-pre-commit = "^2.17.0"
-mypy = "^0.931"
+pre-commit = "^2.19.0"
+mypy = "^0.961"
 types-requests = "^2.27.8"
 types-setuptools = "^57.4.8"
 types-toml = "^0.10.3"
-boto3-stubs = "1.21.4"
+boto3-stubs = "1.20.32"
 
 [tool.isort]
 profile = "black"
