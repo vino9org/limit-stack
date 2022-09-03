@@ -6,10 +6,9 @@ from decimal import Decimal
 from typing import Dict, List, Type, TypeVar, Union, cast
 
 import boto3
+import ulid
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
-
-import ulid
 
 from . import utils
 
