@@ -4,9 +4,9 @@ from dataclasses import dataclass
 
 import boto3
 import pytest
+import ulid
 from botocore.exceptions import ClientError
 
-import ulid
 from limits.manager import PerCustomerLimit
 from limits.utils import is_http_url
 
